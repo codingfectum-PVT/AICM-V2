@@ -13,6 +13,7 @@ const Wrapper = styled(Box)`
 padding-top: 100px;
   height: 100vh;
   position: relative;
+  z-index:222;
 `;
 
 const HighlightTypography = styled(Typography)`

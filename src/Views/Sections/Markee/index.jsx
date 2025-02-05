@@ -87,10 +87,6 @@ const Image = styled("img")`
   width: 100%;
   max-width: 32px;
   height: auto;
-
-  @media (max-width: 600px) {
-    max-width: 50px;
-  }
 `;
 
 export const Markee = () => {
