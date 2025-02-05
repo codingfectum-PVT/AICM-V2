@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SectionWarpper from '../../Components/SectionWrapper';
-import { Box, Container, Grid, styled, Typography, Tooltip } from '@mui/material';
+import { Box, Container, Grid, styled, Typography, Tooltip, useMediaQuery } from '@mui/material';
 import footer from '../../../assets/footer.png';
 import logo from '../../../assets/logo.png';
 import copyImage from '../../../assets/copy.png';
@@ -64,6 +64,8 @@ const CopyImage = styled('img')`
 
 
 const Footer = () => {
+    const isMobile = useMediaQuery('(max-width:699px)');
+  
   const [copySuccess, setCopySuccess] = useState('');
   const contractAddress = '0x87904bE82BC1C29E94a0b99474d183B4e08a7E47';
 
@@ -128,7 +130,7 @@ const Footer = () => {
                   advanced AI tools and secure transactions.
                 </Typography>
 
-                <Typography variant="body1"  sx={{fontSize: { xs: '11px', sm: '12px', md: '14px', lg: '16px' }, display:'flex'}}>
+                <Typography variant="body1"  sx={{lineBreak: isMobile ? 'anywhere':"", fontSize: { xs: '11px', sm: '12px', md: '14px', lg: '16px' }, display:'flex'}}>
                   Contract address:  0x87904bE82BC1C29E94a0b99474d183B4e08a7E47
                   <Tooltip title="Click to copy address" arrow>
                       <CopyImage  src={copyImage}  alt="copy"  onClick={copyToClipboard} sx={{marginTop: { xs: '10px', md: '25px' },marginRight:{md:'15px'} }}  />

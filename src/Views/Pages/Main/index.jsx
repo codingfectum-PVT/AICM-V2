@@ -18,7 +18,7 @@ const HeaderVideo = styled("video")`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1; 
+  z-index: 1; 
   
 
   @media (max-width: 768px) {
@@ -30,7 +30,7 @@ const HeaderVideo = styled("video")`
 
 const MainPage = () => {
   return (
-    <div>
+    <div style={{backgroundColor:"black"}}>
       <HeaderVideo src={headervedio} autoPlay loop muted playsInline />
       <Header />
       <PageWrapper>

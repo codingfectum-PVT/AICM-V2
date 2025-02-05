@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useSelector } from "react-redux";
 import MainPage from '../Views/Pages/Main';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Pricing from "../Views/Pages/Pricing";
 
 const getActiveTheme = (themeMode) => {
-  console.log('themeMode: ', themeMode)
   return createTheme({
     pageColor: themeMode === 'true' || !themeMode ? '#efefef': '#161616',
 
@@ -28,7 +29,12 @@ const ThemeContainer = () => {
   return (
     <ThemeProvider theme={activeTheme}>
       <CssBaseline />
-      <MainPage toggleTheme='' />
+      <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/pricing" element={<Pricing />} />
+      </Routes>
+    </Router>
     </ThemeProvider>
   );
 }
