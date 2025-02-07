@@ -10,32 +10,33 @@ import { ChatButton, PaperEx, TypographyChat, Wrapper, SendButton } from './styl
 import usePrompt from '../../../hooks/usePrompt';
 
 const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
+const welcomeMsg = `Generate a welcome pitch for the AICM chatbot. Use up to 15 words.  
+AICM empowers businesses with AI-driven tools, smart analytics, and seamless e-commerce growth.`;
 
-const welcomeMsg = `Generate a welcome pitch for the AICM services. use up to 15 words, Boost your business with AICM: AI-driven tools for vendors, marketers, and seamless growth.`;
-
-const marketing = ` 
-  <h2>📢 AICM Marketing & Growth Services</h2>
-  <p>Enhance your brand visibility and reach with AI-powered solutions:</p>
-  <ul>
-    <li>🚀 <strong>Sponsored Ad Discounts</strong> - Get premium ad placements at reduced costs.</li>
-    <li>🔍 <strong>AI Smart Search Optimization (Coming Soon)</strong> - Ensure your products rank higher.</li>
-    <li>✅ <strong>Verified Seller Badge</strong> - Build customer trust and credibility.</li>
-    <li>💡 <strong>AI Vendor Copilot (Coming Soon)</strong> - AI-driven assistant to boost your sales.</li>
-  </ul>
-  <p>Ready to expand your reach? <a href="https://aicm.store/pricing" target="_blank">Get Started Here</a></p>
+const marketing = `  
+  <h2>📢 AICM Marketing & Growth Services</h2>  
+  <p>Enhance your brand visibility and reach with AI-powered solutions:</p>  
+  <ul>  
+    <li>🚀 <strong>Sponsored Ad Discounts</strong> - Get premium ad placements at reduced costs.</li>  
+    <li>🔍 <strong>AI Smart Search Optimization (Coming Soon)</strong> - Ensure your products rank higher.</li>  
+    <li>✅ <strong>Verified Seller Badge</strong> - Build customer trust and credibility.</li>  
+    <li>💡 <strong>AI Vendor Copilot (Coming Soon)</strong> - AI-driven assistant to boost your sales.</li>  
+  </ul>  
+  <p>Ready to expand your reach? <a href="https://aicm.store/pricing" target="_blank">Get Started Here</a></p>  
 `;
 
-const ai_Tools = ` 
-  <h2>🛠️ AICM AI-Powered Vendor Tools</h2>
-  <p>Transform your e-commerce and Web3 business with cutting-edge AI automation:</p>
-  <ul>
-    <li>🤖 <strong>AI Conversion Pro</strong> - Maximize sales with intelligent product recommendations.</li>
-    <li>📊 <strong>Basic Analytics Dashboard</strong> - Get insights on customer behavior.</li>
-    <li>🔗 <strong>Custom Token Integration</strong> - Accept cryptocurrency payments seamlessly.</li>
-    <li>🌎 <strong>Multi-Language AI Support</strong> - Expand your global reach effortlessly.</li>
-  </ul>
-  <p>Upgrade your business today! <a href="https://aicm.store/pricing" target="_blank">Choose a Plan</a></p>
+const ai_Tools = `  
+  <h2>🛠️ AICM AI-Powered Vendor Tools</h2>  
+  <p>Transform your e-commerce and Web3 business with cutting-edge AI automation:</p>  
+  <ul>  
+    <li>🤖 <strong>AI Conversion Pro</strong> - Maximize sales with intelligent product recommendations.</li>  
+    <li>📊 <strong>Basic Analytics Dashboard</strong> - Get insights on customer behavior.</li>  
+    <li>🔗 <strong>Custom Token Integration</strong> - Accept cryptocurrency payments seamlessly.</li>  
+    <li>🌎 <strong>Multi-Language AI Support</strong> - Expand your global reach effortlessly.</li>  
+  </ul>  
+  <p>Upgrade your business today! <a href="https://aicm.store/pricing" target="_blank">Choose a Plan</a></p>  
 `;
+
 
 const order_Now = ` 
   <h2>🛒 How to Purchase AICM Services</h2>
@@ -94,9 +95,13 @@ const ChatBox = () => {
   const [userInput, setUserInput] = useState(''); // Make sure this is initialized correctly
   const [isOpen, setIsOpen] = useState(false);
   const [isBotTyping, setIsBotTyping] = useState(false);
+  const [hasOpened, setHasOpened] = useState(false); // Track if the chatbot has been opened
+
+const [hasNewMessage, setHasNewMessage] = useState(true); // NEW: Controls notification badge
   const typewriterContainerRef = useRef(null); // Reference to the typewriter container
   const chatContainerRef = useRef(null); // Reference to the chat container
   const endOfMessagesRef = useRef(null); // Reference to the end marker
+
   // Scroll to the bottom function
  const scrollToBottom = () => {
   if (chatContainerRef.current) {
@@ -106,79 +111,89 @@ const ChatBox = () => {
 };
 
 
-  const handleSend = async (content = null) => {
-    setIsBotTyping(true)
-    const inputContent = content || userInput.trim();
-    if (!inputContent) return;
+const handleSend = async (content = null) => {
+  setIsBotTyping(true);
+  const inputContent = content || userInput.trim();
+  if (!inputContent) return;
 
-    // Add the user's or auto-generated message to the conversation
+  setMessages((prevMessages) => [
+    ...prevMessages,
+    { role: 'user', content: inputContent },
+  ]);
+
+  if (!content) {
+    setUserInput('');
+  }
+
+  try {
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        model: 'gpt-4',
+        messages: [
+          { role: 'system', content: prompt },
+          { role: 'user', content: `${inputContent}, use proper html format and emojis and add line breaks if needed. Do not send repeater figures` },
+        ],
+        max_tokens: 2000,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    let assistantMessage = response?.data.choices[0].message.content.trim().replace(/"/g, '');
+
     setMessages((prevMessages) => [
       ...prevMessages,
-      { role: 'user', content: inputContent },
+      {
+        role: 'assistant',
+        content: assistantMessage,
+        predefinedQuestions: welcomeMessage ? true : null,
+      },
     ]);
 
-    if (!content) {
-      setUserInput(''); // Clear input only if it's manual input
+    setWelcomeMessage(false);
+    setIsBotTyping(false);
+
+  } catch (error) {
+    console.error('Error with OpenAI API:', error);
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { role: 'assistant', content: 'Oops! Something went wrong.' },
+    ]);
+  }
+};
+
+  const handleOpenChatbot = () => {
+    if (!hasOpened) {
+      // Send welcome message only when the chatbot is opened for the first time
+      handleSend(welcomeMsg);
+      setHasOpened(true);
     }
-
-    try {
-      const response = await axios.post(
-        'https://api.openai.com/v1/chat/completions',
-        {
-          model: 'gpt-4',
-          messages: [
-            { role: 'system', content: prompt },
-            { role: 'user', content: `${inputContent}, use proper html format and emojis and add line breaks if needed. Do not send repeater figures` },
-          ],
-          max_tokens: 2000,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${OPENAI_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      let assistantMessage = (response?.data.choices[0].message.content).trim().replace(/"/g, '');
-
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          role: 'assistant',
-          content: assistantMessage.trim().replace(/"/g, ''), // Raw text
-          predefinedQuestions: welcomeMessage ? true : null, // Add predefined questions if needed
-        },
-      ]);
-      setWelcomeMessage(false);
-
-      setIsBotTyping(false)
-      if (isOpen == false) setIsOpen(true)
-    } catch (error) {
-      console.error('Error with OpenAI API:', error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { role: 'assistant', content: 'Oops! Something went wrong.' },
-      ]);
-    }
+    setIsOpen(!isOpen);
+    setHasNewMessage(false); // Remove notification badge when the chatbot is opened
   };
-
   useEffect(() => {
-    handleSend(welcomeMsg)
-  }, []);
+    if (isOpen) {
+      setHasNewMessage(false);
+    }
+  }, [isOpen]);
+  
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      // scrollToBottom(); // Scroll to the bottom on mount or when messages change
+      // scrollToBottom(); 
       chatContainerRef.current.scrollTop = chatContainerRef?.current?.scrollHeight;
     }
   }, [messages]);
 
   useEffect(() => {
-    // Monitor the typewriter container for changes
     if (typewriterContainerRef.current) {
       const observer = new MutationObserver(() => {
-        scrollToBottom(); // Scroll every time a new character is added
+        scrollToBottom();
       });
 
       observer.observe(typewriterContainerRef.current, {
@@ -187,13 +202,13 @@ const ChatBox = () => {
         characterData: true,
       });
 
-      return () => observer.disconnect(); // Cleanup observer on unmount
+      return () => observer.disconnect(); 
     }
   }, []);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevents adding a new line
+      e.preventDefault(); 
       if (userInput.trim() === '') return;
       handleSend();
     }
@@ -201,15 +216,32 @@ const ChatBox = () => {
 
   return (
     <>
-      <ChatButton onClick={() => setIsOpen(!isOpen)}>
+      <ChatButton onClick={handleOpenChatbot}>
         <svg width="26" height="23" viewBox="0 0 56 53" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M47.6 0H8.4C6.17218 0 4.03561 0.881671 2.4603 2.45105C0.884998 4.02044 0 6.14898 0 8.36842V50.2105C0.000854999 50.7048 0.133529 51.19 0.384441 51.6164C0.635354 52.0428 0.995494 52.3952 1.428 52.6374C1.84648 52.8736 2.31899 52.9985 2.8 53C3.30255 52.9999 3.7958 52.865 4.228 52.6095L16.8 45.0221C17.2647 44.7465 17.7996 44.6109 18.34 44.6316H47.6C49.8278 44.6316 51.9644 43.7499 53.5397 42.1805C55.115 40.6111 56 38.4826 56 36.2632V8.36842C56 6.14898 55.115 4.02044 53.5397 2.45105C51.9644 0.881671 49.8278 0 47.6 0ZM16.8 25.1053C16.2462 25.1053 15.7049 24.9417 15.2444 24.6352C14.7839 24.3286 14.4251 23.893 14.2131 23.3833C14.0012 22.8736 13.9458 22.3127 14.0538 21.7716C14.1618 21.2305 14.4285 20.7334 14.8201 20.3433C15.2117 19.9532 15.7106 19.6875 16.2537 19.5799C16.7969 19.4723 17.3599 19.5275 17.8715 19.7387C18.3831 19.9498 18.8204 20.3073 19.1281 20.766C19.4358 21.2248 19.6 21.7641 19.6 22.3158C19.6 23.0556 19.305 23.7651 18.7799 24.2882C18.2548 24.8114 17.5426 25.1053 16.8 25.1053ZM28 25.1053C27.4462 25.1053 26.9049 24.9417 26.4444 24.6352C25.9839 24.3286 25.6251 23.893 25.4131 23.3833C25.2012 22.8736 25.1458 22.3127 25.2538 21.7716C25.3618 21.2305 25.6285 20.7334 26.0201 20.3433C26.4117 19.9532 26.9106 19.6875 27.4537 19.5799C27.9969 19.4723 28.5599 19.5275 29.0715 19.7387C29.5831 19.9498 30.0204 20.3073 30.3281 20.766C30.6358 21.2248 30.8 21.7641 30.8 22.3158C30.8 23.0556 30.505 23.7651 29.9799 24.2882C29.4548 24.8114 28.7426 25.1053 28 25.1053ZM39.2 25.1053C38.6462 25.1053 38.1049 24.9417 37.6444 24.6352C37.1839 24.3286 36.8251 23.893 36.6131 23.3833C36.4012 22.8736 36.3458 22.3127 36.4538 21.7716C36.5618 21.2305 36.8285 20.7334 37.2201 20.3433C37.6117 19.9532 38.1106 19.6875 38.6537 19.5799C39.1969 19.4723 39.7599 19.5275 40.2715 19.7387C40.7831 19.9498 41.2205 20.3073 41.5281 20.766C41.8358 21.2248 42 21.7641 42 22.3158C42 23.0556 41.705 23.7651 41.1799 24.2882C40.6548 24.8114 39.9426 25.1053 39.2 25.1053Z" fill="white" />
         </svg>
+        {hasNewMessage && !isOpen && (
+          <div style={{
+            position: 'absolute',
+            top: '-5px',
+            right: '-5px',
+            backgroundColor: '#e65100',
+            color: 'white',
+            borderRadius: '50%',
+            width: '20px',
+            height: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '12px',
+          }}>
+            1
+          </div>
+        )}
       </ChatButton>
-      {/* Chat Window */}
+
       {isOpen && (
         <Wrapper>
-          {/* Header */}
           <div
             style={{
               padding: '5px 10px',
@@ -356,6 +388,7 @@ const ChatBox = () => {
             <div ref={endOfMessagesRef} /> {/* Marker for end of messages */}
             {isBotTyping && <Typography variant='subtitle2' position={'sticky'} bottom={'-11px'} fontSize={12} color={'#ffffff96'}>typing...</Typography>}
           </PaperEx>
+
 
           {/* Input */}
           <div

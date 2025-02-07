@@ -16,77 +16,73 @@ const usePrompt = () => {
         const response = await axios.get(url);
         const ethPrice = response.data.ethereum.usd;
 
-        // Generate prompt
         const dynamicPrompt = `
 
-      Step 1: Identify User Type
-      "Welcome to AICM! How can we assist you today?"
-        Vendor: Enhance your business with AI-driven tools.
-        Marketer: Promote your products with advanced AI-powered.
-
-      Step 2: Vendor Flow (For AI Tools & Business Growth)
-      If the user identifies as a Vendor:
-      "Our AI-powered plans help you scale your business effortlessly. Choose a plan that fits your needs:"
-      🟠 **Essential (Free)** – Get started with AI-powered tools to establish your presence.
-      ✅ AI Conversion Pro
-      ✅ AI Smart Search Optimization (Coming Soon)
-      ✅ Secure Payment Gateway
-      ✅ Product/Service Detail Page
-      ✅ Real Reviews & Ratings
-      ✅ Basic Analytics Dashboard
-      ✅ AI-Driven FAQs
-        🔥 **Elevate (0.5 ETH ${(0.5*ethPrice).toFixed(2)} in USD)** – Unlock premium AI features for growth.
-      ✅ Everything in Essential, plus:
-      ✅ AI-Driven FAQs
-      ✅ Verified Seller Badge
-      ✅ Sponsored Ad Discounts
-      ✅ Verified Seller Badge
-      ✅ AI Vendor Copilot (Coming Soon)
-      ✅ Reduced Transaction Fees
-      ✅ Sponsored Ad Discounts
-        🚀 **Elite (1 ETH or approximately ${(1*ethPrice).toFixed(2)} in USD)** – Maximum visibility & AI automation.
-      ✅ Everything in Elevate, plus:
-      ✅ Custom Token Integration
-      ✅ Multi-Language AI Support
-      ✅ Dedicated Account Manager
-      ✅ Exclusive Beta Feature Access
-      ✅ Project Awareness Campaign
-
-        "Which plan would you like to activate today?"
-        **[Select Plan](https://aicm.store/pricing)**
-
-      Step 3: Marketer Flow (For AI-Powered)
-      If the user identifies as a Marketer:
-        "Boost your brand with AI-driven solutions:"
-      🎯 **Verified Seller Badge** – Establish trust with customers.
-      📢 **Sponsored Ad Discounts** – Get featured across our AI marketplace.
-      🔗 **Custom Token Integration** – Seamlessly integrate tokenized payments.
-       "Would you like to start today?"  
-       **[View Options](https://aicm.store/pricing)**  
-
-      Step 4: Clarify Misunderstandings
-      If a user asks for AI tools but the bot suggests marketing:
-        "It seems you're looking for AI tools to grow your business. Our marketing solutions are for promotion. Would you like to explore AI plans instead?"  
-
-      Step 5: Final Confirmation and Call to Action
-      "Would you like to finalize your subscription order?"
-
-      **List of Plans & Features:**
-      🟠 **Essential (Free)** - Basic AI tools  
-      🔥 **Elevate (0.5 ETH)** - Advanced AI growth features  
-      🚀 **Elite (1 ETH)** - Complete AI automation & top-tier benefits  
-
-      **[Get Started](https://aicm.store/pricing)**  
-
-      **Key Adjustments:**
-      1. Replace repetitive phrases like "same as above" with clear, standalone descriptions.  
-      2. Include separate, specific product descriptions and CTAs for all options.  
-      3. Ensure all services have their own unique description to improve readability and eliminate confusion.  
-      4. Use HTML-friendly emojis and formatting consistently.  
-      5. add a hyperlink button for each product those mentioned above as call to action(CTA).
-
-`;
-
+        <h2>🔹 Welcome to AICM! How can we assist you today?</h2>
+        
+        <ul>
+          <li><strong>🆓 Essential User:</strong> Get started with free AI-powered tools.</li>
+          <li><strong>🚀 Elevate User:</strong> Unlock enhanced features and AI-driven insights.</li>
+          <li><strong>🌟 Elite User:</strong> Gain top placement, AI tools, and social media boost.</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>🆓 Essential Plan (Free AI-Powered Tools)</h2>
+        ✔️ AI Conversion Pro <br>
+        ✔️ AI Smart Search Optimization (Coming Soon) <br>
+        ✔️ Product/Service Detail Page <br>
+        ✔️ Real Reviews & Ratings <br>
+        ✔️ Secure Payment Gateway <br>
+        ✔️ Basic Analytics Dashboard <br>
+        ✔️ AI-Driven FAQs <br>
+        
+        👉 <a href="https://aicm.store/pricing" target="_blank">Try for Free</a>
+        
+        <hr>
+        
+        <h2>🚀 Elevate Plan (Enhanced AI Capabilities – 0.5 ETH / $${(0.5 * ethPrice || 0).toFixed(2)})</h2>
+        <strong>Includes all Essential Plan features</strong> plus: <br>
+        ✔️ Verified Seller Badge <br>
+        ✔️ AI Vendor Copilot (Coming Soon) <br>
+        ✔️ Reduced Transaction Fees <br>
+        ✔️ Sponsored Ad Discounts <br>
+        
+        👉 <a href="https://aicm.store/pricing" target="_blank">Buy Now – 0.5 ETH (~$${(0.5 * ethPrice || 0).toFixed(2)})</a>
+        
+        <hr>
+        
+        <h2>🌟 Elite Plan (Premium AI Features – 1 ETH / $${(1 * ethPrice || 0).toFixed(2)})</h2>
+        <strong>Includes all Elevate Plan features</strong> plus: <br>
+        ✔️ Custom Token Integration <br>
+        ✔️ Multi-Language AI Support <br>
+        ✔️ Dedicated Account Manager <br>
+        ✔️ Exclusive Beta Feature Access <br>
+        ✔️ Project Awareness Campaign <br>
+        
+        👉 <a href="https://aicm.store/pricing" target="_blank">Buy Now – 1 ETH (~$${(1 * ethPrice || 0).toFixed(2)})</a>
+        
+        <hr>
+        
+        <h2>📌 List of AICM Products & Pricing:</h2>
+        <ul>
+          <li>🆓 <strong>Essential Plan:</strong> Free → <a href="https://aicm.store/pricing" target="_blank">Try Now</a></li>
+          <li>🚀 <strong>Elevate Plan:</strong> 0.5 ETH (~$${(0.5 * ethPrice || 0).toFixed(2)}) → <a href="https://aicm.store/pricing" target="_blank">Buy Now</a></li>
+          <li>🌟 <strong>Elite Plan:</strong> 1 ETH (~$${(1 * ethPrice || 0).toFixed(2)}) → <a href="https://aicm.store/pricing" target="_blank">Buy Now</a></li>
+        </ul>
+        
+        <hr>
+        
+        <h2>❓ Need help choosing?</h2>
+        Let me know your budget, business needs, or goals, and I’ll recommend the best plan for you!  
+        
+        <h2>💬 Additional Support:</h2>
+        📧 Contact: <strong>info@aicm.store</strong> <br>
+        🌐 Visit: <a href="https://aicm.store" target="_blank">AICM Website</a>
+        
+        `;
+        
+        
 
         setPrompt(dynamicPrompt);
       } catch (err) {

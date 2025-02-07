@@ -141,7 +141,7 @@ const MobileMenu = (props) => {
                       <MenuLink
                         href="/#what"
                         style={{padding: '10px 30px',  color: '#ffffff', marginRight: '45px',}}>
-                        What Is AICm
+                        What Is AICM
                       </MenuLink>
 
                       <MenuLink
