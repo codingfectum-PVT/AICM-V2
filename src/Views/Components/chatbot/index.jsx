@@ -8,84 +8,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Typewriter from 'typewriter-effect';
 import { ChatButton, PaperEx, TypographyChat, Wrapper, SendButton } from './style';
 import usePrompt from '../../../hooks/usePrompt';
+import { ai_Tools, compare_Services, marketing, order_Now, welcomeMsg } from '../ListOfPrompts';
 
 const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
-const welcomeMsg = `Generate a welcome pitch for the AICM chatbot. Use up to 15 words.  
-AICM empowers businesses with AI-driven tools, smart analytics, and seamless e-commerce growth.`;
-
-const marketing = `  
-  <h2>📢 AICM Marketing & Growth Services</h2>  
-  <p>Enhance your brand visibility and reach with AI-powered solutions:</p>  
-  <ul>  
-    <li>🚀 <strong>Sponsored Ad Discounts</strong> - Get premium ad placements at reduced costs.</li>  
-    <li>🔍 <strong>AI Smart Search Optimization (Coming Soon)</strong> - Ensure your products rank higher.</li>  
-    <li>✅ <strong>Verified Seller Badge</strong> - Build customer trust and credibility.</li>  
-    <li>💡 <strong>AI Vendor Copilot (Coming Soon)</strong> - AI-driven assistant to boost your sales.</li>  
-  </ul>  
-  <p>Ready to expand your reach? <a href="https://aicm.store/pricing" target="_blank">Get Started Here</a></p>  
-`;
-
-const ai_Tools = `  
-  <h2>🛠️ AICM AI-Powered Vendor Tools</h2>  
-  <p>Transform your e-commerce and Web3 business with cutting-edge AI automation:</p>  
-  <ul>  
-    <li>🤖 <strong>AI Conversion Pro</strong> - Maximize sales with intelligent product recommendations.</li>  
-    <li>📊 <strong>Basic Analytics Dashboard</strong> - Get insights on customer behavior.</li>  
-    <li>🔗 <strong>Custom Token Integration</strong> - Accept cryptocurrency payments seamlessly.</li>  
-    <li>🌎 <strong>Multi-Language AI Support</strong> - Expand your global reach effortlessly.</li>  
-  </ul>  
-  <p>Upgrade your business today! <a href="https://aicm.store/pricing" target="_blank">Choose a Plan</a></p>  
-`;
-
-
-const order_Now = ` 
-  <h2>🛒 How to Purchase AICM Services</h2>
-  <p>Follow these simple steps to access AICM's AI-driven tools and marketing solutions:</p>
-  <ol>
-    <li>🔹 Visit the <a href="https://aicm.store" target="_blank">AICM Store</a></li>
-    <li>🔹 Choose a plan that suits your needs.</li>
-    <li>🔹 Complete your purchase using ETH or supported payment options.</li>
-    <li>🔹 Start using AI-powered tools to grow your business.</li>
-  </ol>
-  <p>Get started now: <a href="https://aicm.store/pricing" target="_blank">View Plans</a></p>
-`;
-
-const compare_Services = ` 
-  <h2>📊 Compare AICM Services</h2>
-  <table border="1">
-    <tr>
-      <th>Feature</th>
-      <th>Essential (Free)</th>
-      <th>Elevate (0.5 ETH)</th>
-      <th>Elite (1 ETH)</th>
-    </tr>
-    <tr>
-      <td>AI Conversion Pro</td>
-      <td>✅</td><td>✅</td><td>✅</td>
-    </tr>
-    <tr>
-      <td>AI Smart Search Optimization (Coming Soon)</td>
-      <td>✅</td><td>✅</td><td>✅</td>
-    </tr>
-    <tr>
-      <td>Verified Seller Badge</td>
-      <td>❌</td><td>✅</td><td>✅</td>
-    </tr>
-    <tr>
-      <td>Sponsored Ad Discounts</td>
-      <td>❌</td><td>✅</td><td>✅</td>
-    </tr>
-    <tr>
-      <td>Custom Token Integration</td>
-      <td>❌</td><td>❌</td><td>✅</td>
-    </tr>
-    <tr>
-      <td>Dedicated Account Manager</td>
-      <td>❌</td><td>❌</td><td>✅</td>
-    </tr>
-  </table>
-  <p>Find the best plan for you: <a href="https://aicm.store/pricing" target="_blank">Compare Plans</a></p>
-`;
 
 const ChatBox = () => {
   const { prompt, loading: promptLoading, error: promtError } = usePrompt();
@@ -96,76 +21,81 @@ const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isBotTyping, setIsBotTyping] = useState(false);
   const [hasOpened, setHasOpened] = useState(false); // Track if the chatbot has been opened
-
-const [hasNewMessage, setHasNewMessage] = useState(true); // NEW: Controls notification badge
+  const [hasNewMessage, setHasNewMessage] = useState(true); // NEW: Controls notification badge
   const typewriterContainerRef = useRef(null); // Reference to the typewriter container
   const chatContainerRef = useRef(null); // Reference to the chat container
   const endOfMessagesRef = useRef(null); // Reference to the end marker
 
   // Scroll to the bottom function
- const scrollToBottom = () => {
-  if (chatContainerRef.current) {
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-  }
-  endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
-};
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+    endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
 
-const handleSend = async (content = null) => {
-  setIsBotTyping(true);
-  const inputContent = content || userInput.trim();
-  if (!inputContent) return;
+  const handleSend = async (content = null) => {
+    setIsBotTyping(true);
+    const inputContent = content || userInput.trim();
+    if (!inputContent) return;
 
-  setMessages((prevMessages) => [
-    ...prevMessages,
-    { role: 'user', content: inputContent },
-  ]);
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { role: 'user', content: inputContent },
+    ]);
 
-  if (!content) {
-    setUserInput('');
-  }
+    if (!content) {
+      setUserInput('');
+    }
 
-  try {
-    const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: 'gpt-4',
-        messages: [
-          { role: 'system', content: prompt },
-          { role: 'user', content: `${inputContent}, use proper html format and emojis and add line breaks if needed. Do not send repeater figures` },
-        ],
-        max_tokens: 2000,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
+    try {
+      const response = await axios.post(
+        'https://api.openai.com/v1/chat/completions',
+        {
+          model: 'gpt-4',
+          messages: [
+            {
+              role: 'system', content: `${prompt}
+              You are an AI chatbot that ONLY provides information about AICM products and services.
+              If a user asks something unrelated (e.g., weather, sports, history, or general knowledge), respond with:
+              "I'm an AICM assistant and can only provide details about AICM products. Let me know how I can assist with AICM services! 😊"
+              Never generate responses about unrelated topics.
+              ` },
+            { role: 'user', content: `${inputContent}, use proper html format and emojis and add line breaks if needed. Do not send repeater figures` },
+          ],
+          max_tokens: 2000,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${OPENAI_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-    let assistantMessage = response?.data.choices[0].message.content.trim().replace(/"/g, '');
+      let assistantMessage = response?.data.choices[0].message.content.trim().replace(/"/g, '');
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      {
-        role: 'assistant',
-        content: assistantMessage,
-        predefinedQuestions: welcomeMessage ? true : null,
-      },
-    ]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          role: 'assistant',
+          content: assistantMessage,
+          predefinedQuestions: welcomeMessage ? true : null,
+        },
+      ]);
 
-    setWelcomeMessage(false);
-    setIsBotTyping(false);
+      setWelcomeMessage(false);
+      setIsBotTyping(false);
 
-  } catch (error) {
-    console.error('Error with OpenAI API:', error);
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { role: 'assistant', content: 'Oops! Something went wrong.' },
-    ]);
-  }
-};
+    } catch (error) {
+      console.error('Error with OpenAI API:', error);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { role: 'assistant', content: 'Oops! Something went wrong.' },
+      ]);
+    }
+  };
 
   const handleOpenChatbot = () => {
     if (!hasOpened) {
@@ -181,7 +111,7 @@ const handleSend = async (content = null) => {
       setHasNewMessage(false);
     }
   }, [isOpen]);
-  
+
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -202,13 +132,13 @@ const handleSend = async (content = null) => {
         characterData: true,
       });
 
-      return () => observer.disconnect(); 
+      return () => observer.disconnect();
     }
   }, []);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); 
+      e.preventDefault();
       if (userInput.trim() === '') return;
       handleSend();
     }
