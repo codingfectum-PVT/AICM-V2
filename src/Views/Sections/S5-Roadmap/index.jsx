@@ -155,20 +155,20 @@ const Roadmap = () => {
                 Onboarding KOLs (Key Opinion Leaders)
               </RoadmapListItem>
               <RoadmapListItem>
-                <RoadmapIcon src={loading} alt="In Progress" />
+                <RoadmapIcon src={tick} alt="Completed" />
                 Develop MVP
               </RoadmapListItem>
               <RoadmapListItem>
-                <RoadmapIcon src={loading} alt="In Progress" />
+                <RoadmapIcon src={tick} alt="Completed" />
                 Onboarding Projects
+              </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Completed" />
+                AI-Driven Chatbot for Data Collection and Personalization
               </RoadmapListItem>
               <RoadmapListItem>
                 <RoadmapIcon src={loading} alt="In Progress" />
                 Referral System (Refer to Earn)
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={loading} alt="In Progress" />
-                AI-Driven Chatbot for Data Collection and Personalization
               </RoadmapListItem>
             </RoadmapCardactive>
           </SwiperSlide>
