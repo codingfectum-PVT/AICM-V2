@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import LockerMenu from "../../../Components/LockerMenu";
 import { Box, Container, Grid, Typography, Button, styled } from "@mui/material";
 import { Markee } from "../../Markee";
-import glow from "../../../../assets/pricingbg.png";
+import Bgshadowpricing from "../../../../assets/bgshadowpricing.png";
 import PricingCard from "../../../Components/PricingCard";
 import ComparePlans from "../../../Components/Compare";
 import AOS from 'aos';
@@ -13,7 +13,7 @@ const Wrapper = styled(Box)`
   flex-direction: column;
   align-items: center;
   padding-top: 200px;
-  background-image: url(${glow});
+  background-image: url(${Bgshadowpricing});
   background-size: cover;
   background-position: center;
 `;

@@ -74,7 +74,7 @@ const PricingCard = ({ tagline, title, price, features, buttonText, highlight })
                     <HighlightTypography variant="h2" sx={{ zIndex: "999", fontSize: { xs: "30px", sm: "30px", md: "30px", lg: "30px" } }}>
                         {title}
                     </HighlightTypography>
-                    <Typography sx={{ zIndex: "999", fontSize: "16px", fontWeight: "bold", mt: 1, mb: 0 }}>Prize</Typography>
+                    <Typography sx={{ zIndex: "999", fontSize: "16px", fontWeight: "bold", mt: 1, mb: 0 }}>Price</Typography>
                     <Typography sx={{ zIndex: "999", fontSize: "40px", color: "#FF7B29", fontWeight: "bold", mt: 0 }}>{price}</Typography>
                     <Typography sx={{ whiteSpace: 'pre-line', zIndex: "999", fontSize: "14px", mb: 2 }}>{tagline}</Typography>
                     <Button variant="contained" fullWidth sx={{ alignItems: "center", textTransform: 'none', padding: "15px", display: "flex", justifyContent: "space-between", background: "linear-gradient(290deg, #FF7B29, #FF7B29, #FF7B29, #FCBD49)", color: "#fff", borderRadius: "40px", mt: 1 }}>

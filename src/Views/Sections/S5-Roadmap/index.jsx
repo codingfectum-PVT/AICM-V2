@@ -125,58 +125,19 @@ const Roadmap = () => {
             },
           }}
           className="roadmap-swiper">
-          <SwiperSlide>
+              <SwiperSlide>
             <RoadmapCardactive data-aos="fade-up">
               <div style={{display:'flex'}}>
-              <RoadmapHeader>Q4 2024</RoadmapHeader>
-              <CurrentPhaseButton>
+              <RoadmapHeader>Q1 2025</RoadmapHeader>
+               <CurrentPhaseButton>
                 Current Phase
               </CurrentPhaseButton>
-              </div>
-              <Typography mb={2}>Post-Token Launch Activities</Typography>
-              <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
-                Community Building & Marketing
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
-                Web2 Marketing Material
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
-                Finalize Platform Design & Architecture
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
-                Smart Contract Development
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
-                Onboarding KOLs (Key Opinion Leaders)
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={loading} alt="In Progress" />
-                Develop MVP
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={loading} alt="In Progress" />
-                Onboarding Projects
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={loading} alt="In Progress" />
-                Referral System (Refer to Earn)
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={loading} alt="In Progress" />
-                AI-Driven Chatbot for Data Collection and Personalization
-              </RoadmapListItem>
-            </RoadmapCardactive>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <RoadmapCard data-aos="fade-up">
-              <RoadmapHeader>Q1 2025</RoadmapHeader>
+                </div>
               <Typography mb={2}>Early Development and Demo Release</Typography>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Complete" />
+                Release of Demo
+              </RoadmapListItem>
               <RoadmapListItem>
                 <RoadmapIcon src={loading} alt="In Progress" />
                 Platform Development
@@ -187,19 +148,21 @@ const Roadmap = () => {
               </RoadmapListItem>
               <RoadmapListItem>
                 <RoadmapIcon src={loading} alt="In Progress" />
-                Release of Demo
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={loading} alt="In Progress" />
                 Smart Contract Integration
               </RoadmapListItem>
               <RoadmapListItem>
                 <RoadmapIcon src={loading} alt="In Progress" />
                 Prepare for Merchandise Sales
               </RoadmapListItem>
-            </RoadmapCard>
+              <RoadmapListItem>
+                <RoadmapIcon src={loading} alt="In Progress" />
+                Referral System (Refer to Earn)
+              </RoadmapListItem>
+            </RoadmapCardactive>
           </SwiperSlide>
 
+      
+        
           <SwiperSlide>
             <RoadmapCard data-aos="fade-up">
               <RoadmapHeader>Q2 2025</RoadmapHeader>
@@ -264,6 +227,47 @@ const Roadmap = () => {
               </RoadmapListItem>
             </RoadmapCard>
           </SwiperSlide>
+          <SwiperSlide>
+            <RoadmapCard data-aos="fade-up">
+              <RoadmapHeader>Q4 2024</RoadmapHeader>
+
+              <Typography mb={2}>Post-Token Launch Activities</Typography>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Completed" />
+                Community Building & Marketing
+              </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Completed" />
+                Web2 Marketing Material
+              </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Completed" />
+                Finalize Platform Design & Architecture
+              </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Completed" />
+                Smart Contract Development
+              </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Completed" />
+                Onboarding KOLs (Key Opinion Leaders)
+              </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Completed" />
+                Develop MVP
+              </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Completed" />
+                Onboarding Projects
+              </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Completed" />
+                AI-Driven Chatbot for Data Collection and Personalization
+              </RoadmapListItem>
+              
+            </RoadmapCard>
+          </SwiperSlide>
+
         </Swiper>
       </Container>
     </SectionWarpper>
