@@ -17,12 +17,11 @@ const LockerMenu = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
 
   const menuList = [
-    { title: 'Shop Now',  link: '#', hasDropdown: true, isImage: true },
     { title: 'Create a Store', link: CreateaStore, icon: <StoreIcon />, target: '_blank' },
-    { title: 'Advertise', link: Advertise , icon: <CampaignIcon />, target: '_blank' },
+    { title: 'Advertise', link: Advertise, icon: <CampaignIcon />, target: '_blank' },
     { title: 'Affiliate Program', link: AffiliateProgramLink, icon: <GroupAddIcon />, target: '_blank' },
     { title: 'About', link: '#', icon: <InfoIcon />, hasDropdown: true },
-    { title: 'Get Started', icon: <PersonIcon />, isButton: true, target: '_blank' },
+    { title: 'Shop Now', link: 'https://app.aicm.store', isButton: true, target: '_blank' },
   ];
 
   const fadeInStyle = useSpring({
@@ -32,17 +31,12 @@ const LockerMenu = () => {
     config: { tension: 150, friction: 20 },
   });
 
-  const shopDropdownContent = [
-    { text: 'Physical Goods', link: '/#physicalproducts' },
-    { text: 'Digital Goods', link: '/#DigitalGoods' },
-    { text: 'Services', link: '/#Services' },
-  ];
 
   const aboutDropdownContent = [
     { text: 'What is AICM', link: '/#what' },
     { text: 'Token Utility', link: '/#token' },
     { text: 'Roadmap', link: '/#roadmap' },
-    { text: 'Whitepaper',  link: whitepaperLink, target: '_blank' },
+    { text: 'Whitepaper', link: whitepaperLink, target: '_blank' },
   ];
 
   return (
@@ -65,15 +59,18 @@ const LockerMenu = () => {
             <img src={logo} alt="Logo" style={{ height: '40px', width: 'auto', marginRight: '20px' }} />
           </Box>
 
-          <Box component="a" href="/" sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center',}}>
+          <Box component="a" href="/" sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', }}>
             <img src={logo} alt="Logo" style={{ height: '30px', width: 'auto' }} />
           </Box>
 
           <Box className="desktop-menu" display="flex" alignItems="center" flexWrap="wrap" gap="20px"
-            sx={{ display: { xs: 'none', md: 'flex' },
+            sx={{
+              display: { xs: 'none', md: 'flex' },
               '@media (max-width: 1024px)': {
                 justifyContent: 'space-between',
-                gap: '10px',},}}>
+                gap: '10px',
+              },
+            }}>
 
             {menuList.map((menu, index) => (
               <Box
@@ -92,45 +89,29 @@ const LockerMenu = () => {
                   menu.hasDropdown && setDropdownOpen(null);
                 }}>
                 {menu.isButton ? (
-              <Button
-                href={menu.link}
-                target={menu.target || '_self'}
-                variant="contained"
-                color="warning"
-              sx={{
-                backgroundColor: '#ff7b23',
-                color: '#fff',
-                borderRadius: '20px',
-                textTransform: 'none',
-                padding: '8px 20px',
-                transition: 'all 0.3s ease',
-                minWidth: '140px', 
-                display: 'flex', 
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '1px',
-                position: 'relative', 
-              }} startIcon={menu.icon}>
+                  <Button
+                    href={menu.link}
+                    target={menu.target || '_self'}
+                    variant="contained"
+                    color="warning"
+                    sx={{
+                      background: "linear-gradient(290deg, #FF7B29, #FF7B29, #FF7B29, #FCBD49)",
+                      color: '#fff',
+                      borderRadius: '20px',
+                      textTransform: 'none',
+                      padding: '8px 20px',
+                      transition: 'all 0.3s ease',
+                      minWidth: '140px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '1px',
+                      position: 'relative',
+                    }} startIcon={menu.icon}>
 
-              <span
-                style={{ display: 'inline-block',position: 'relative',
-                  opacity: hoveredItem === 'Get Started' ? 0 : 1, 
-                  transition: 'opacity 0.3s ease',
-                  whiteSpace: 'nowrap',}}>
-                {menu.title}
-              </span>
-            
-           
-              <span
-                style={{ display: 'inline-block', position: 'absolute', left: '20px', right: '0', top: '20%',  
-                  opacity: hoveredItem === 'Get Started' ? 1 : 0, 
-                  transition: 'transform 0.3s ease, opacity 0.3s ease',
-                  whiteSpace: 'nowrap',
-                  textAlign: 'center',}}>
-                Coming Soon
-              </span>
-            </Button>
-               
+                    {menu.title}
+                  </Button>
+
                 ) : (
                   <Box
                     display="flex"
@@ -138,7 +119,7 @@ const LockerMenu = () => {
                     component="a"
                     href={menu.link}
                     target={menu.target || '_self'}
-                      sx={{
+                    sx={{
                       textDecoration: 'none',
                       color: '#fff',
                       fontSize: '14px',
@@ -157,26 +138,31 @@ const LockerMenu = () => {
                 )}
                 {dropdownOpen === menu.title && (
                   <Box
-                    sx={{position: 'absolute',top: '110%',left: 0,background: ' rgba(0, 0, 0, 0.9)',backdropFilter: 'blur(6px)',color: '#fff',boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',borderRadius: '8px',
+                    sx={{
+                      position: 'absolute', top: '110%', left: 0, background: ' rgba(0, 0, 0, 0.9)', backdropFilter: 'blur(6px)', color: '#fff', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', borderRadius: '8px',
                       minWidth: '150px',
                       padding: '10px 0',
-                      border:'1px solid #1C1C1C',
-                      zIndex: 1001,}}>
-                        
-                    {(menu.title === 'Shop Now' ? shopDropdownContent : aboutDropdownContent).map((item, idx) => (
+                      border: '1px solid #1C1C1C',
+                      zIndex: 1001,
+                    }}>
+
+                    {(menu.title === 'About' && aboutDropdownContent).map((item, idx) => (
                       <Box
                         key={idx}
                         component="a"
                         href={item.link}
                         target={item.target || '_self'}
-                        sx={{display: 'block',padding: '8px 16px',fontSize: '14px',textDecoration: 'none',color: '#fff',
+                        sx={{
+                          display: 'block', padding: '8px 16px', fontSize: '14px', textDecoration: 'none', color: '#fff',
                           '&:hover': {
-                            backgroundColor: '#ff7b29',cursor: 'pointer',},}}>
+                            backgroundColor: '#ff7b29', cursor: 'pointer',
+                          },
+                        }}>
                         {item.text}
                       </Box>
                     ))}
                   </Box>
-                )}  
+                )}
               </Box>
             ))}
           </Box>
@@ -184,7 +170,7 @@ const LockerMenu = () => {
           <Box
             className="mobile-menu"
             sx={{
-              display: { xs: 'block', md: 'none' }, 
+              display: { xs: 'block', md: 'none' },
             }}>
             <MobileMenu menuList={menuList} />
           </Box>

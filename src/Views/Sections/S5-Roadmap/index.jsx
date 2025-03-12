@@ -158,6 +158,10 @@ const Roadmap = () => {
                 <RoadmapIcon src={loading} alt="In Progress" />
                 Referral System (Refer to Earn)
               </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={loading} alt="In Progress" />
+                AI-Driven Chatbot for Data Collection and Personalization
+              </RoadmapListItem>
             </RoadmapCardactive>
           </SwiperSlide>
 
@@ -259,12 +263,7 @@ const Roadmap = () => {
               <RoadmapListItem>
                 <RoadmapIcon src={tick} alt="Completed" />
                 Onboarding Projects
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
-                AI-Driven Chatbot for Data Collection and Personalization
-              </RoadmapListItem>
-              
+              </RoadmapListItem>              
             </RoadmapCard>
           </SwiperSlide>
 

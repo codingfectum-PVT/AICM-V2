@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Box, Container, Grid, Typography, TextField } from "@mui/material";
+import { Box, Container, Grid, Typography, TextField, Button } from "@mui/material";
 import fieldimg from "../../../assets/fieldimg.png";
 import searchimg from "../../../assets/searchimg.png";
 import LockerMenu from "../../Components/LockerMenu";
-import { Markee } from "../Markee"; 
+import { Markee } from "../Markee";
 
 const Wrapper = styled(Box)`
   display: flex;
@@ -70,7 +70,32 @@ const SearchInput = styled(TextField)`
   }
 `;
 
+const ReadButton = styled(Button)`
+  padding: 8px 35px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  color: #000000;
+  text-transform: capitalize;
+  margin-bottom: 50px;
+  :hover {
+    background-color: #ffffff;
+  }
+`;
+const ShopButton = styled(Button)`
+  padding: 8px 35px;
+  border-radius: 25px;
+  color: #fff;
+  text-transform: capitalize;
+  margin-bottom: 50px;  
+  background: linear-gradient(290deg, #FF7B29, #FF7B29, #FF7B29, #FCBD49);
+  `;
+const WrapButton = styled(Box)`
+  display: flex; 
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px; 
 
+  `
 const Header = () => {
   return (
     <Wrapper>
@@ -79,18 +104,22 @@ const Header = () => {
       <Container maxWidth="xl">
         <Grid container>
           <Grid item xs={12} justifyContent="center" textAlign={"center"}>
-            <HighlightTypography variant="h2"sx={{ fontSize: { xs: "40px", sm: "50px", md: "60px", lg: "80px" } }}>
+            <HighlightTypography variant="h2" sx={{ fontSize: { xs: "40px", sm: "50px", md: "60px", lg: "80px" } }}>
               The Smarter, <br /> AI Powered Decentralized <br /> Marketplace
             </HighlightTypography>
-            <Typography variant="body1"color="#FFFFFF"sx={{ fontSize: { xs: "14px", sm: "16px", md: "18px" } }} >
+            <Typography variant="body1" color="#FFFFFF" sx={{ fontSize: { xs: "14px", sm: "16px", md: "18px" } }} >
               Harness the power of decentralized AI marketplace with AICM.
             </Typography>
+            <WrapButton>
+              <ShopButton target="blank" href="https://app.aicm.store">Shop Now</ShopButton>
+              <ReadButton target="blank" href="/pricing">Become Vendor</ReadButton>
+            </WrapButton>
 
-            <SearchBox>
+            {/* <SearchBox>
               <FieldImage src={fieldimg} alt="Field Image" />
               <SearchInput placeholder="Search with AICM" variant="outlined" autoComplete="off" InputProps={{ style: { color: "#FFFFFF" } }} />
               <SearchImage src={searchimg} alt="Search Icon" />
-            </SearchBox>
+            </SearchBox> */}
           </Grid>
         </Grid>
       </Container>

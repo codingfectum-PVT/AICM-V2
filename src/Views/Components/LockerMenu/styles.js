@@ -29,10 +29,10 @@ const SiteLogo = styled.img`
 const MenuLink = styled(Link)`
   font-size: max(15px, 17px);
 
-  color: ${ (props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.textPrimary};
   
   text-decoration: none;
-  padding: ${ (props) => props.p? props.p: '0 15px'};
+  padding: ${(props) => props.p ? props.p : '0 15px'};
   cursor: pointer;
   transition-duration: 0.5s;
 
@@ -42,15 +42,13 @@ const MenuLink = styled(Link)`
   }
   @media (max-width: 899px) {
     display: block;
-    padding: ${ (props) => props.p? props.p: '15px 0 15px 20px'};
+    padding: ${(props) => props.p ? props.p : '15px 0 15px 20px'};
     text-align: left;
   }
   &:last-child {
     border-width: 0px;
-   
     border-radius: 20px;
-   
-    margin: 15px auto;
+    margin: 15px 0;
     padding: 10px 25px;
     text-align: center;
     @media (max-width: 599px) {
@@ -74,7 +72,7 @@ const DrawerBox = styled(Box)`
 const DrawerDivider = styled.div``
 
 const MenuButton = styled(Button)`
-  background: ${ (props)=> props.theme.pageColor};
+  background: ${(props) => props.theme.pageColor};
   width: 35px;
   min-width: unset;
   padding-left: 6px;
@@ -82,7 +80,7 @@ const MenuButton = styled(Button)`
 `;
 
 const Humburgger = styled.span`
-  background: ${ (props)=> props.theme.textPrimary};
+  background: ${(props) => props.theme.textPrimary};
   height: 24px;
   width: 30px;
   color: #000000;
@@ -93,16 +91,16 @@ const Humburgger = styled.span`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  border-top: 4px solid ${ (props)=> props.theme.textPrimary};
-  border-bottom: 4px solid ${ (props)=> props.theme.textPrimary};
+  border-top: 4px solid ${(props) => props.theme.textPrimary};
+  border-bottom: 4px solid ${(props) => props.theme.textPrimary};
 
   &::after,&::before{
     content: 'menu';
-    background: ${ (props)=> props.theme.pageColor};
+    background: ${(props) => props.theme.pageColor};
     display: block;
     height: 6px;
     width: 100%;
-    color: ${ (props)=> props.theme.pageColor};
+    color: ${(props) => props.theme.pageColor};
   }
 
 `;
@@ -119,11 +117,11 @@ const HumburggerClose = styled.span`
 
   &::after,&::before{
     content: 'menu';
-    background: ${ (props)=> props.theme.textPrimary};
+    background: ${(props) => props.theme.textPrimary};
     display: block;
     height: 6px;
     width: 100%;
-    color: ${ (props)=> props.theme.textPrimary};
+    color: ${(props) => props.theme.textPrimary};
     position: absolute;
   }
   &::before{ transform: rotate(-45deg) translate(-8px, 8px); top: 3px;}
