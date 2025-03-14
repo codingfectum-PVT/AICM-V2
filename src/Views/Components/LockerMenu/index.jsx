@@ -43,14 +43,14 @@ const LockerMenu = () => {
     <animated.div
       style={{
         ...fadeInStyle,
-        background: '#0000004a',
+        background: 'rgb(0 0 0 / 50%)',
         backdropFilter: 'blur(10px)',
         position: 'absolute',
         left: 0,
         right: 0,
         top: 70,
         zIndex: 1000,
-        padding: '20px 0',
+        padding: '25px 0',
       }}
     >
       <Container maxWidth="xl" sx={{ padding: '0 20px' }}>
@@ -100,14 +100,18 @@ const LockerMenu = () => {
                       borderRadius: '20px',
                       textTransform: 'none',
                       padding: '8px 20px',
-                      transition: 'all 0.3s ease',
+                      transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
                       minWidth: '140px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '1px',
                       position: 'relative',
-                    }} startIcon={menu.icon}>
+                      '&:hover': {
+                        boxShadow: '0 0 10px 3px #FF7B29',
+                      },
+                    }}
+                    startIcon={menu.icon}>
 
                     {menu.title}
                   </Button>

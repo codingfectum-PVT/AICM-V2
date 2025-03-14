@@ -2,39 +2,91 @@ import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import SectionWarpper from '../../Components/SectionWrapper';
 import { Container, Grid, Box, Typography } from '@mui/material';
-import tick from '../../../assets/tick.png'; 
-import loading from '../../../assets/loading.png'; 
+import tick from '../../../assets/tick.png';
+import loading from '../../../assets/loading.png';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css'; 
+import 'swiper/swiper-bundle.min.css';
 
 const AboutButton = styled(Box)`
   display: inline-block;
   padding: 5px 15px;
-  background-color: #707070;
+  background-color:rgba(255, 255, 255, 0.20);
   border-radius: 25px;
   border: 1px solid #ffffff;
+  text-transform: capitalize;
   color: #ffffff;
   cursor: default;
   margin-bottom: 30px;
+  :hover{
+    background-color:rgba(255, 255, 255, 0.20);
+  }
 `;
 
 const HighlightTypography = styled(Typography)`
   margin-bottom: 20px;
-  background: linear-gradient(131deg, #ffffff 30%, #fcbd49 65%, #fd9c39 85%);
-  background-clip: text;
+ background: linear-gradient(
+    131deg,
+    #ffffff 40%,
+    #ff7b29 55%,
+    #fd9c39 60%,
+    #fcbd49 90%
+  );  background-clip: text;
   text-fill-color: transparent;
   font-weight: 700;
   margin: 0 auto;
 `;
-
 const RoadmapCard = styled(Box)`
-  background: linear-gradient(180deg, #1e1e1e, #000000);
+  background: linear-gradient(180deg, #000000, #5c5858);
   border-radius: 10px;
   padding: 30px 20px;
   color: #ffffff;
   text-align: left;
+  height: 500px;
+  position: relative;
+  
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 1px; /* Border width */
+    background: linear-gradient(180deg, #70707030, #707070);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+`;
+
+const UpcomingRoadmapCard = styled(Box)`
+  background: linear-gradient(180deg, #3c3c3c61, #000000);
+  border-radius: 10px;
+  padding: 30px 20px;
+  color: #ffffff;
+  text-align: left;
+  height: 500px;
+  position: relative;
+  
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 1px; /* Border width */
+    background: linear-gradient(180deg, #3c3c3c30, #3c3c3c);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 `;
 
 const RoadmapCardactive = styled(Box)`
@@ -43,9 +95,25 @@ const RoadmapCardactive = styled(Box)`
   padding: 30px 20px;
   color: #ffffff;
   text-align: left;
+  height: 500px;
   position: relative;
+  
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 1px; /* Border width */
+    background: linear-gradient(180deg, #ff7b2930, #ff7b29);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 `;
-
 const RoadmapListItem = styled(Box)`
   display: flex;
   align-items: center;
@@ -57,29 +125,77 @@ const RoadmapIcon = styled('img')`
   height: 20px;
   margin-right: 10px;
 `;
+const RoadmapIconCompleted = styled('img')`
+filter: grayscale(100%); 
+width: 20px;
+  height: 20px;
+  margin-right: 10px;
+`;
 
 const RoadmapHeader = styled(Typography)`
   font-size: 35px;
   font-weight: bold;
-  margin-bottom: 15px;
-`;
-
-const CurrentPhaseButton = styled(Box)`
-  position: absolute;
-  left: 200px;
-  background: linear-gradient(180deg, #68340069 100%, #c04c03 10%);
-  margin-top: 5px;
-  padding: 7px 20px;
-  border-radius: 20px;
-  border: 1px solid #FF7B29;
-  color: #ff660e;
-  @media (max-width: 600px) {
-   padding: 10px 10px;
+  // margin-bottom: 15px;
+  @media (max-width: 999px) {
+   font-size: 25px;
+  }
+  @media (max-width: 400px) {
+   font-size: 25px;
   }
 `;
 
+const StyledSwiperSlide = styled(SwiperSlide)`
+  width: auto;
+  height: auto;
+  // Remove max-width to let the Swiper's slidesPerView control sizing
+  
+  @media (max-width: 768px) {
+    // No max-width needed here
+  }
+`;
+
+const CurrentPhaseButton = styled(Box)`
+  font-size: 14px;
+  background: #ff7b2926;
+  padding: 4px 18px;
+  border-radius: 20px;
+  border: 1px solid #FF7B29;
+  color: #ff660e;
+ @media (max-width: 820px) {
+   padding: 5px;
+   font-size: 10px;
+  }
+`;
+const PassedPhaseButton = styled(Box)`
+font-size: 14px;  
+background: hsla(0, 0%, 13%, 1);
+padding: 4px 18px;
+border-radius: 20px;
+color: #ffffff63;
+  border: 1px solid #707070;
+  color: #ffffff63;
+  @media (max-width: 820px) {
+     padding: 5px;
+     font-size: 10px;
+    
+    }
+    `;
+const WrapCrousle = styled(Box)`
+padding: 0 0 0 105px;
+
+@media (max-width: 468px) {
+padding: 0 10px;
+}
+
+`
+const WrapButtonHeading = styled(Box)`
+display: flex;
+    gap: 20px;
+    flex-direction: row;
+    align-items: center;
+    `
 const Roadmap = () => {
- useEffect(() => {
+  useEffect(() => {
     AOS.init({
       duration: 1000,
       once: false,
@@ -104,47 +220,57 @@ const Roadmap = () => {
           </Grid>
         </Grid>
 
+      </Container>
+      <WrapCrousle >
         <Swiper
-          spaceBetween={30}    
-          slidesPerView={3}      
-          loop={true}          
-          centeredSlides={true}  
-          grabCursor={true}     
+          spaceBetween={30}
+          slidesPerView={3.3}
+          loop={true}
+          centeredSlides={false}
+          grabCursor={true}
+          initialSlide={4}
           breakpoints={{
             0: {
-              slidesPerView: 1, 
+              slidesPerView: 1,
+              centeredSlides: false,
             },
-            600: {
-              slidesPerView: 1, 
-            },
-            900: {
-              slidesPerView: 2, 
+            768: {
+              slidesPerView: 1.5,
+              centeredSlides: false,
             },
             1200: {
-              slidesPerView: 3, 
+              slidesPerView: 3.3,
+              centeredSlides: false,
             },
+            1600: {
+              slidesPerView: 3.5,
+              centeredSlides: false,
+            }
           }}
-          className="roadmap-swiper">
-              <SwiperSlide>
+          className="roadmap-swiper"
+        >
+
+
+          <StyledSwiperSlide>
             <RoadmapCardactive data-aos="fade-up">
-              <div style={{display:'flex'}}>
-              <RoadmapHeader>Q1 2025</RoadmapHeader>
-               <CurrentPhaseButton>
-                Current Phase
-              </CurrentPhaseButton>
-                </div>
+              <WrapButtonHeading >
+                <RoadmapHeader>Q1 2025</RoadmapHeader>
+                <CurrentPhaseButton>
+                  Current Phase
+                </CurrentPhaseButton>
+              </WrapButtonHeading>
               <Typography mb={2}>Early Development and Demo Release</Typography>
               <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Complete" />
-                Release of Demo
-              </RoadmapListItem>
-              <RoadmapListItem>
-                <RoadmapIcon src={loading} alt="In Progress" />
+                <RoadmapIcon src={tick} alt="In Progress" />
                 Platform Development
               </RoadmapListItem>
               <RoadmapListItem>
                 <RoadmapIcon src={loading} alt="In Progress" />
                 AI Integration for Homepage
+              </RoadmapListItem>
+              <RoadmapListItem>
+                <RoadmapIcon src={tick} alt="Complete" />
+                Release of Demo
               </RoadmapListItem>
               <RoadmapListItem>
                 <RoadmapIcon src={loading} alt="In Progress" />
@@ -163,12 +289,12 @@ const Roadmap = () => {
                 AI-Driven Chatbot for Data Collection and Personalization
               </RoadmapListItem>
             </RoadmapCardactive>
-          </SwiperSlide>
+          </StyledSwiperSlide>
 
-      
-        
-          <SwiperSlide>
-            <RoadmapCard data-aos="fade-up">
+
+
+          <StyledSwiperSlide>
+            <UpcomingRoadmapCard data-aos="fade-up">
               <RoadmapHeader>Q2 2025</RoadmapHeader>
               <Typography mb={2}>Vendor Onboarding and Storefront Development</Typography>
               <RoadmapListItem>
@@ -187,11 +313,11 @@ const Roadmap = () => {
                 <RoadmapIcon src={loading} alt="In Progress" />
                 Product Customization Integration
               </RoadmapListItem>
-            </RoadmapCard>
-          </SwiperSlide>
+            </UpcomingRoadmapCard>
+          </StyledSwiperSlide>
 
-          <SwiperSlide>
-            <RoadmapCard data-aos="fade-up">
+          <StyledSwiperSlide>
+            <UpcomingRoadmapCard data-aos="fade-up">
               <RoadmapHeader>Q3 2025</RoadmapHeader>
               <Typography mb={2}>Marketplace Expansion and Full Launch</Typography>
               <RoadmapListItem>
@@ -210,11 +336,10 @@ const Roadmap = () => {
                 <RoadmapIcon src={loading} alt="In Progress" />
                 Promotional Campaigns
               </RoadmapListItem>
-            </RoadmapCard>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <RoadmapCard data-aos="fade-up">
+            </UpcomingRoadmapCard>
+          </StyledSwiperSlide>
+          <StyledSwiperSlide>
+            <UpcomingRoadmapCard data-aos="fade-up">
               <RoadmapHeader>Q4 2025</RoadmapHeader>
               <Typography mb={2}>Scaling and Advanced Features</Typography>
               <RoadmapListItem>
@@ -223,52 +348,60 @@ const Roadmap = () => {
               </RoadmapListItem>
               <RoadmapListItem>
                 <RoadmapIcon src={loading} alt="In Progress" />
-                Mobile App Release
+                Feedback and Referral Systems
               </RoadmapListItem>
               <RoadmapListItem>
                 <RoadmapIcon src={loading} alt="In Progress" />
-                Global Expansion
+                NFT Integration (Optional)
               </RoadmapListItem>
-            </RoadmapCard>
-          </SwiperSlide>
-          <SwiperSlide>
+              <RoadmapListItem>
+                <RoadmapIcon src={loading} alt="In Progress" />
+                Global Outreach
+              </RoadmapListItem>
+            </UpcomingRoadmapCard>
+          </StyledSwiperSlide>
+          <StyledSwiperSlide>
             <RoadmapCard data-aos="fade-up">
-              <RoadmapHeader>Q4 2024</RoadmapHeader>
-
+              <WrapButtonHeading>
+                <RoadmapHeader>Q4 2024</RoadmapHeader>
+                <PassedPhaseButton>
+                  Completed Phase
+                </PassedPhaseButton>
+              </WrapButtonHeading>
               <Typography mb={2}>Post-Token Launch Activities</Typography>
               <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
+                <RoadmapIconCompleted src={tick} alt="Completed" />
                 Community Building & Marketing
               </RoadmapListItem>
               <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
+                <RoadmapIconCompleted src={tick} alt="Completed" />
                 Web2 Marketing Material
               </RoadmapListItem>
               <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
+                <RoadmapIconCompleted src={tick} alt="Completed" />
                 Finalize Platform Design & Architecture
               </RoadmapListItem>
               <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
+                <RoadmapIconCompleted src={tick} alt="Completed" />
                 Smart Contract Development
               </RoadmapListItem>
               <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
+                <RoadmapIconCompleted src={tick} alt="Completed" />
                 Onboarding KOLs (Key Opinion Leaders)
               </RoadmapListItem>
               <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
+                <RoadmapIconCompleted src={tick} alt="Completed" />
                 Develop MVP
               </RoadmapListItem>
               <RoadmapListItem>
-                <RoadmapIcon src={tick} alt="Completed" />
+                <RoadmapIconCompleted src={tick} alt="Completed" />
                 Onboarding Projects
-              </RoadmapListItem>              
+              </RoadmapListItem>
             </RoadmapCard>
-          </SwiperSlide>
+          </StyledSwiperSlide>
 
         </Swiper>
-      </Container>
+      </WrapCrousle>
     </SectionWarpper>
   );
 };

@@ -17,7 +17,7 @@ const MarkeeContainer = styled.div`
   width: 100%;
   overflow: hidden;
   position: absolute;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgb(0 0 0 / 50%);
   top: 0;
   backdrop-filter: blur(6px);
   z-index: 2;

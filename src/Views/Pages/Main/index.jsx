@@ -10,6 +10,8 @@ import Token from '../../Sections/S4-Token';
 import Roadmap from '../../Sections/S5-Roadmap';
 import Footer from '../../Sections/S6-Footer';
 import { Markee } from '../../Sections/Markee';
+import ListedProjects from '../../Sections/S3-ListedProjects';
+import Audit from '../../Sections/S5_1-Audit';
 
 const HeaderVideo = styled("video")`
   width: 100%;
@@ -34,8 +36,10 @@ const MainPage = () => {
       <HeaderVideo src={headervedio} autoPlay loop muted playsInline />
       <Header />
       <PageWrapper>
+      <ListedProjects/>
       <Categories/>
       <WhatAICM />
+      <Audit/>
       <Token/>
       <Roadmap/>
       <Footer/>

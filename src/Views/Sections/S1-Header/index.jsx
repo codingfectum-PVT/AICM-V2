@@ -18,7 +18,7 @@ padding-top: 100px;
 
 const HighlightTypography = styled(Typography)`
   margin-bottom: 10px;
-  background: linear-gradient(131deg, #ffffff 30%, #fcbf49 65%, #fd9c39 85%);
+  background: linear-gradient(131deg, #ffffff 30%, #FF7B29 65%, #fd9c39 76%, #FCBD49 80%);
   background-clip: text;
   text-fill-color: transparent;
   font-weight: 700;
@@ -80,6 +80,13 @@ const ReadButton = styled(Button)`
   :hover {
     background-color: #ffffff;
   }
+    @media (max-width: 375px) {
+padding: 8px 15px;
+    }
+:hover{
+ box-shadow: 0 0 10px 0 #fff inset, 0 0 10px 2px #fff;
+  
+}
 `;
 const ShopButton = styled(Button)`
   padding: 8px 35px;
@@ -88,6 +95,13 @@ const ShopButton = styled(Button)`
   text-transform: capitalize;
   margin-bottom: 50px;  
   background: linear-gradient(290deg, #FF7B29, #FF7B29, #FF7B29, #FCBD49);
+    @media (max-width: 375px) {
+padding: 8px 15px;
+    }
+:hover{
+ box-shadow: 0 0 10px 0 #FF7B29 inset, 0 0 10px 2px #FF7B29;
+  
+}
   `;
 const WrapButton = styled(Box)`
   display: flex; 
