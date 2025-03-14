@@ -2,7 +2,7 @@ import newStyled from '@emotion/styled'
 import React from 'react'
 
 const Wrapper = newStyled.div`
-    padding: 140px 0px;
+    padding: 150px 0px;
 `
 
 const SectionWarpper = ({children}) => {

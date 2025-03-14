@@ -13,6 +13,7 @@ import logo from "../../../../assets/logo.png";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { MaterialUISwitch, MenuLink, MobileMainMenu, SiteLogo, DrawerBox, DrawerDivider, Humburgger, HumburggerClose, MenuButton } from "../styles";
 import { whitepaperLink } from "../../../../links";
+import { Button } from "@mui/material";
 
 const MobileMenu = (props) => {
   const currentTheme = useSelector((state) => state.LDTheme.value);
@@ -34,7 +35,7 @@ const MobileMenu = (props) => {
     event.preventDefault(); // Prevent the link from opening
 
     // If the clicked item is "Shop Now" or "About", toggle dropdown visibility
-    if (menuTitle === "Shop Now" || menuTitle === "About") {
+    if (menuTitle === "About") {
       handleDropdownToggle(index); // Toggle dropdown visibility
     } else {
       // If the clicked item is "Physical Products" or "Digital Goods", scroll to the section
@@ -53,8 +54,6 @@ const MobileMenu = (props) => {
  
   const getIcon = (title) => {
     switch (title) {
-      case "Shop Now":
-        return <img src={shop} alt="Shop" style={{ width: 20, height: 20 }} />;
       case "Create a Store":
         return <StoreIcon />;
       case "Advertise":
@@ -63,8 +62,6 @@ const MobileMenu = (props) => {
         return <GroupAddIcon />;
       case "About Us":
         return <InfoIcon />;
-      case "Get Started":
-        return <PersonIcon />;
       case "About":
         return <InfoIcon />;
       default:
@@ -104,6 +101,26 @@ const MobileMenu = (props) => {
             <List>
               {menuItems.map((value, i) => (
                 <div key={i}>
+                   {value.isButton ? (
+                     <Button
+                     href={value.link}
+                     target={value.target || '_self'}
+                     variant="contained"
+                     color="warning"
+                     sx={{
+                       background: "linear-gradient(290deg, #FF7B29, #FF7B29, #FF7B29, #FCBD49)",
+                       color: '#fff',
+                       borderRadius: '20px',
+                       textTransform: 'none',
+                       padding: '8px 20px',
+                       transition: 'all 0.3s ease',
+                       minWidth: '140px',
+                       
+                     }} >
+ 
+                     {value.title}
+                   </Button>
+                   ): (
                   <MenuLink href={value.link} target={value.target}  className={value.customClass + " d-block"}
                     onClick={(e) => { handleMenuClick(value.title, i, e);  }}
                     style={{ display: 'flex', alignItems: 'center',padding: '10px 10px',textDecoration: 'none', 
@@ -111,29 +128,12 @@ const MobileMenu = (props) => {
 
                     {getIcon(value.title)} 
                     <span style={{ marginLeft: '10px' }}>{value.title}</span> 
-                    {(value.title === "Shop Now" || value.title === "About") && (
+                    {(value.title === "About") && (
                       <KeyboardArrowDownIcon style={{marginLeft: '10px',transform: openDropdown === i ? 'rotate(180deg)' : 'rotate(0deg)', // Rotate icon if dropdown is open
                           transition: 'transform 0.3s', }} />)}
                   </MenuLink>
-
-                  {/* Dropdown Menu for "Shop Now" */}
-                  {value.title === "Shop Now" && openDropdown === i && (
-                    <div style={{ paddingLeft: '20px', paddingTop: '10px', display: 'flex', flexDirection: 'column' }}>
-                     <MenuLink href="/#physicalproducts"
-                        style={{ padding: '5px 30px', color: '#ffffff', }}>
-                        Physical products
-                      </MenuLink>
-                      <MenuLink href="/#DigitalGoods"
-                        style={{ padding: '10px 30px',  color: 'white', marginRight: '45px',}} >
-                       Digital Goods
-                      </MenuLink>
-                      <MenuLink
-                        href="/#Services"
-                        style={{marginTop:'-8px',   paddingRight: '190px',color: '#ffffff', }}>
-                        Services
-                      </MenuLink>
-                    </div>
-                  )}
+ )}
+                  
 
                   {/* Dropdown Menu for "About" */}
                   {value.title === "About" && openDropdown === i && (
@@ -152,7 +152,7 @@ const MobileMenu = (props) => {
 
                       <MenuLink
                         href="/#roadmap"
-                        style={{padding: '10px 40px', color: '#ffffff',marginRight: '45px',}}>
+                        style={{padding: '10px 30px', color: '#ffffff',marginRight: '45px',}}>
                         Roadmap
                       </MenuLink>
                       <MenuLink

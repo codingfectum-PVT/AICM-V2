@@ -11,20 +11,27 @@ import { whitepaperLink } from '../../../links';
 
 const AboutButton = styled(Button)`
   padding: 5px 20px;
-  background-color: #707070;
+  background-color:rgba(255, 255, 255, 0.20);
   border-radius: 25px;
+  text-transform: capitalize;
   border: 1px solid #ffffff;
   color: #ffffff;
   cursor: default;
   margin-bottom: 40px;
   :hover{
-    background-color: #707070;
+    background-color:rgba(255, 255, 255, 0.20);
   }
 `;
 
 const HighlightTypography = styled(Typography)`
   margin-bottom: 40px;
-  background: linear-gradient(131deg, #ffffff 30%, #fcbd49 65%, #fd9c39 85%);
+    background: linear-gradient(
+    131deg,
+    #ffffff 40%,
+    #ff7b29 55%,
+    #fd9c39 60%,
+    #fcbd49 90%
+  );
   background-clip: text;
   text-fill-color: transparent;
   font-weight: 700;
@@ -36,15 +43,19 @@ const ReadButton = styled(Button)`
   border-radius: 25px;
   color: #000000;
   margin-bottom: 50px;
-  :hover {
-    background-color: #ffffff;
-  }
+  transition: all 0.3s ease-in-out !important; /* Smooth transition */
+
+  :hover{
+ box-shadow: 0 0 10px 0 #fff inset, 0 0 10px 2px #fff;
+  background-color: #ffffff;
+}
 `;
 
 const VideoWrapper = styled(Box)`
   position: relative;
   width: 100%;
   height: 400px;
+  border-radius: 20px;
   overflow: hidden;
   @media (max-width: 600px) {
     height: 250px;
@@ -76,18 +87,20 @@ const OverlayImage = styled('img')`
 `;
 
 const WhatAICM = () => {
+  
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+      easing: "ease-in-out",
+    });
+    AOS.refresh();
+  }, []);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [isImageVisible, setIsImageVisible] = useState(true);
   const videoRef = useRef(null);
-    useEffect(() => {
-      AOS.init({
-        duration: 1000,  
-        once: false,     
-        easing: 'ease-in-out',
-      });
-      AOS.refresh(); 
-    }, []);
-
+    
 
   const handleImageClick = () => {
     if (videoRef.current) {
@@ -107,16 +120,15 @@ const WhatAICM = () => {
 
 
 
-
   return (
-    <SectionWarpper > 
+    <> 
       <Container maxWidth="md"  id="what">  
         <Grid item xs={12} justifyContent={'center'} textAlign={'center'}>
           <AboutButton  data-aos="fade-up">About</AboutButton>
           <HighlightTypography variant="h2" sx={{ fontSize: { xs: '45px', sm: '40px', md: '60px' } }}   data-aos="fade-up" >
             What is AICM?
           </HighlightTypography>
-          <Typography variant="body1"sx={{maxWidth: '800px',margin: '0 auto',marginBottom: '50px',fontSize: { xs: '14px', sm: '16px', md: '18px' },}}
+          <Typography variant="body1"sx={{maxWidth: '800px',margin: '0 auto',marginBottom: '50px',fontSize: { xs: '14px', sm: '18px', md: '22px' },}}
             data-aos="fade-up" >
             AICM is an AI-powered marketplace for physical goods, digital products, and services. Built on blockchain, we provide secure, transparent, and scalable trading solutions, connecting crypto communities and revolutionizing global e-commerce.
           </Typography>
@@ -130,7 +142,7 @@ const WhatAICM = () => {
           </VideoWrapper>
         </Grid>
       </Container>
-    </SectionWarpper>
+    </>
   );
 };
 

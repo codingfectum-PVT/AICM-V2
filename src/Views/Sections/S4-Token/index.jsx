@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Box, Button, Grid, Typography, Tooltip } from '@mui/material';
 import SectionWarpper from '../../Components/SectionWrapper';
-import glow from '../../../assets/glow.png';
+import glow from '../../../assets/Ellipse.png';
 import token from '../../../assets/token.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,23 +11,30 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { CA } from '../../../links';
 
+import copyImage from '../../../assets/copy.png';
 const AboutButton = styled(Button)`
   padding: 5px 15px;
-  background-color: #707070;
+  background-color:rgba(255, 255, 255, 0.20);
   border-radius: 25px;
   border: 1px solid #ffffff;
+  text-transform: capitalize;
   color: #ffffff;
   cursor: default;
   margin-bottom: 30px;
   :hover{
-    background-color: #707070;
+    background-color:rgba(255, 255, 255, 0.20);
   }
 `;
 
 const HighlightTypography = styled(Typography)`
   margin-bottom: 20px;
-  background: linear-gradient(131deg, #ffffff 30%, #fcbd49 65%, #fd9c39 85%);
-  background-clip: text;
+  background: linear-gradient(
+    131deg,
+    #ffffff 40%,
+    #ff7b29 55%,
+    #fd9c39 60%,
+    #fcbd49 90%
+  );  background-clip: text;
   text-fill-color: transparent;
   font-weight: 700;
   margin: 0 auto;
@@ -35,7 +42,10 @@ const HighlightTypography = styled(Typography)`
 
 const Tokenimg = styled('img')`
   width: 100%;
-  max-width: 1200px;
+  max-width: 1100px;
+   user-drag: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
   @media (max-width: 1024px) {
     display: none;
   }
@@ -87,6 +97,9 @@ const ContractAddressBox = styled(Box)`
     max-width: 95%;
     margin: 0 auto;
   }
+  @media (max-width: 330px) {
+    padding: 10px;
+  }
 `;
 
 const Token = () => {
@@ -123,6 +136,13 @@ const Token = () => {
     });
   };
 
+  const CopyImage = styled('img')`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 0px;
+`;
+
   return (
     <SectionWarpper>
       <Imagewrapper id='token'>
@@ -131,7 +151,7 @@ const Token = () => {
           <HighlightTypography variant="h2" data-aos="fade-up" sx={{fontSize: { xs: '45px', sm: '40px', md: '60px' },}}>
             Token Utility
           </HighlightTypography>
-          <Typography variant="body1" sx={{ fontSize: { xs: '14px', sm: '16px', md: '18px' }, marginTop: '20px' }}data-aos="fade-up">
+          <Typography variant="body1" sx={{ fontSize: { xs: '14px', sm: '18px', md: '22px' }, marginTop: '20px' }}data-aos="fade-up">
             Discover how the $AICM token powers transactions, rewards, and exclusive <br /> features across our marketplace
           </Typography>
           <Tokenimg src={token} alt="Token" data-aos="fade-up" />
@@ -148,6 +168,8 @@ const Token = () => {
                   sx={{marginBottom: { xs: '10px', sm: '0' },fontSize: { xs: '11px', sm: '12px', md: '18px' },}}>
                   {contractAddress}
                 </Typography>
+                <CopyImage  src={copyImage}  alt="copy"  onClick={copyToClipboard} sx={{marginTop: { xs: '10px', md: '25px' },marginRight:{md:'15px'} }}  />
+                  
               </Box>
             </ContractAddressBox>
             
