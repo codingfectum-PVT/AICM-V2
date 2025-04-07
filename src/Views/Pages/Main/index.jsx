@@ -12,6 +12,7 @@ import Footer from '../../Sections/S6-Footer';
 import { Markee } from '../../Sections/Markee';
 import ListedProjects from '../../Sections/S3-ListedProjects';
 import Audit from '../../Sections/S5_1-Audit';
+import Popup from '../../Components/Popup';
 
 const HeaderVideo = styled("video")`
   width: 100%;
@@ -33,6 +34,7 @@ const HeaderVideo = styled("video")`
 const MainPage = () => {
   return (
     <div style={{backgroundColor:"black"}}>
+      <Popup/>
       <HeaderVideo src={headervedio} autoPlay loop muted playsInline />
       <Header />
       <PageWrapper>

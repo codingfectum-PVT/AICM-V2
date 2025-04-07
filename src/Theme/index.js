@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import MainPage from '../Views/Pages/Main';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Pricing from "../Views/Pages/Pricing";
+import Yachtparty from "../Views/Pages/Yachtparty";
+import YachtpartyForm from "../Views/Pages/YachtPartyForm";
 
 const getActiveTheme = (themeMode) => {
   return createTheme({
@@ -33,6 +35,8 @@ const ThemeContainer = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/yacht-party" element={<Yachtparty />} />
+        <Route path="/yacht-party-form" element={<YachtpartyForm />} />
       </Routes>
     </Router>
     </ThemeProvider>
