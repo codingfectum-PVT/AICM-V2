@@ -26,6 +26,9 @@
 ::-webkit-scrollbar:hover {
   width: 10px; 
 }
+:root {
+  --w3m-font-family: 'Figtree', primary !important;
+}
 
 .App-logo {
   height: 40vmin;
