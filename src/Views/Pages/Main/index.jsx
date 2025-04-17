@@ -34,7 +34,7 @@ const HeaderVideo = styled("video")`
 const MainPage = () => {
   return (
     <div style={{backgroundColor:"black"}}>
-      <Popup/>
+      {/* <Popup/> */}
       <HeaderVideo src={headervedio} autoPlay loop muted playsInline />
       <Header />
       <PageWrapper>

@@ -35,8 +35,8 @@ const ThemeContainer = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/yacht-party" element={<Yachtparty />} />
-        <Route path="/yacht-party-form" element={<YachtpartyForm />} />
+        {/* <Route path="/yacht-party" element={<Yachtparty />} /> */}
+        {/* <Route path="/yacht-party-form" element={<YachtpartyForm />} /> */}
       </Routes>
     </Router>
     </ThemeProvider>
